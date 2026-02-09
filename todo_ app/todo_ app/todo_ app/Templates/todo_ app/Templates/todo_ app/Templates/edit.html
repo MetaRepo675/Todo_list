@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}ویرایش وظیفه - مدیریت وظایف{% endblock %}
+
+{% block content %}
+<div class="edit-container">
+    <h2><i class="fas fa-edit"></i> ویرایش وظیفه</h2>
+    
+    <form method="POST" action="{{ url_for('edit_todo', todo_id=todo['id']) }}">
+        <div class="form-group">
+            <input type="text" name="task" value="{{ todo['task'] }}" placeholder="عنوان وظیفه *" required>
+        </div>
+        <div class="form-group">
+            <textarea name="description" placeholder="توضیحات (اختیاری)" rows="4">{{ todo['description'] or '' }}</textarea>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label>اولویت:</label>
+                <select name="priority">
+                    <option value="1" {% if todo['priority'] == 1 %}selected{% endif %}>عادی</option>
+                    <option value="2" {% if todo['priority'] == 2 %}selected{% endif %}>مهم</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>تاریخ انجام:</label>
+                <input type="date" name="due_date" value="{{ todo['due_date'] or '' }}">
+            </div>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i> ذخیره تغییرات
+            </button>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">
+                <i class="fas fa-times"></i> انصراف
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}
